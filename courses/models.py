@@ -18,7 +18,7 @@ class Subject(models.Model):
         return self.title
 
 class Course(models.Model):
-    # 创建这门课程的导数
+    # 创建这门课程的导师
     owner = models.ForeignKey(User,
                               related_name='courses_created',
                               on_delete=models.CASCADE)
@@ -30,6 +30,10 @@ class Course(models.Model):
                             unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
+    # 学生和课程之间是多对多关系
+    students = models.ManyToManyField(User,
+                                      related_name='courses_joined',
+                                      blank=True)
 
     class Meta:
         ordering = ['-created']
