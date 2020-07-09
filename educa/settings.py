@@ -42,12 +42,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    ## 第三方应用
+    # 这是处理嵌入视频的
+    'embed_video',
+    # 监控缓存
+    'memcache_status',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 为了缓存整站
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 为了缓存整站
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -126,3 +136,23 @@ STATIC_URL = '/static/'
 
 # 学生登录之后重定向到的页面
 LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
+
+# 保存文件图片等媒体文件
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
+
+
+# 配置缓存
+CACHES = {
+    'default':{
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        # 下面是memcached默认的端口
+        'LOCATION':'127.0.0.1:11211',
+    }
+}
+
+
+CACHE_MIDDLEWARE_ALIAS = 'default'
+# 缓存十五分钟
+CACHE_MIDDLEWARE_SECONDS = 60*15 
+CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'

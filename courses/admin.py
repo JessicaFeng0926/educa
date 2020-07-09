@@ -19,3 +19,7 @@ class CourseAdmin(admin.ModelAdmin):
     search_fields = ['title','overview']
     prepopulated_fields = {'slug':('title',)}
     inlines = [ModuleInline]
+
+
+# 在后台监测缓存
+admin.site.index_template = 'memcache_status/admin_index.html'
