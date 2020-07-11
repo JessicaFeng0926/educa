@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'embed_video',
     # 监控缓存
     'memcache_status',
+    # 编写API用的
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -156,3 +158,10 @@ CACHE_MIDDLEWARE_ALIAS = 'default'
 # 缓存十五分钟
 CACHE_MIDDLEWARE_SECONDS = 60*15 
 CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
+
+# 配置根据用户的权限访问资源，匿名用户只读
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES':[
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ]
+}
