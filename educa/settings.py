@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     ## 本地应用
     'courses.apps.CoursesConfig',
     'students.apps.StudentsConfig',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,16 +51,18 @@ INSTALLED_APPS = [
     'memcache_status',
     # 编写API用的
     'rest_framework',
+    # 写聊天室用的
+    'channels',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 为了缓存整站
-    'django.middleware.cache.UpdateCacheMiddleware',
+    #'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 为了缓存整站
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -165,3 +168,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ]
 }
+
+# 设置主要的ASGI应用，这是为聊天室服务的
+ASGI_APPLICATION = 'educa.routing.application'
