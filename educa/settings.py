@@ -171,3 +171,14 @@ REST_FRAMEWORK = {
 
 # 设置主要的ASGI应用，这是为聊天室服务的
 ASGI_APPLICATION = 'educa.routing.application'
+
+# 这是为了实现多人聊天配置的
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        # 我的redis有密码，书上的没有，所以我的配置不太一样
+        'CONFIG':{
+            'hosts':[("redis://:jessica@127.0.0.1:6379/0")],
+        },
+    },
+}
